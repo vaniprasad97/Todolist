@@ -1,81 +1,20 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  padding: 2em;
-  flex-direction: column;
-  border-radius: 30px;
-}
-h4 {
-  font: serif;
-  color: red;
-  padding: 40px;
-  text-align: left;
-  margin-left: -13.5%;
-}
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-
-/* body {
-  font-family: "Crimson Pro", serif;
-  display: grid;
-  height: 100vh;
-} */
-
-.login-container p {
-  color: red;
+body{
+  padding-top: 100px;
+  background: #7f7fd5;
+  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
 }
 
-.login-container fieldset {
-  border: none;
+.logindata
+{
+ margin-bottom: 50%;
+  margin: auto;
+  width: 20%;
+  background-color: white;
+  border: 1px solid rgb(219, 225, 228);
+  padding: 50px;
 }
 
-.login-button {
-  background-color: #047baa;
-  color: white;
-  padding: 14px 20px;
-  /* margin: 10px 0; */
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
-}
 
-.login-button:hover {
-  background-color: #227093;
-  border: 1px solid #227093;
-}
-
-.Email,
-.Password {
-  background: hsl(0deg 0% 100%);
-  box-shadow: 0 0 2em hsl(231deg 62% 94%);
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  color: hsl(0deg 0% 30%);
-  margin-top: -2.9em;
-  width: 100%;
-  margin-bottom: 1px;
-  padding: 8px 12px;
-  border: 1px solid #dbdbdb;
-  box-sizing: border-box;
-  border-radius: 12px;
-  font-family: sans-serif;
-}
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f3f3f3;
-  color: #333;
-  font-family: sans-serif;
-  overflow-y: hidden;
-}
-
-.login {
-  background-color: rgb(241, 208, 147);
-}
 .login-container {
   outline: 3px solid #182c61;
   display: flex;
@@ -89,6 +28,50 @@ body {
   text-align: center;
   box-shadow: 0 0 20px0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-/* .login-form {
-  font-family: sans-serif;
-} */
+
+.login-container h1 {
+  font-family: "Alfa Slab One", cursive;
+  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
+  color: #182c61;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container p {
+  color: red;
+}
+
+.login-container fieldset {
+  border: none;
+}
+
+.login-button {
+  margin: 0;
+  width: 200px;
+  align-self: center;
+  text-align: center;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  padding: 5px 12px;
+  color: #fff;
+  font-weight: bold;
+  font-size: larger;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.login-button:hover {
+  background-color: #227093;
+  border: 1px solid #227093;
+}
+
+.Email,
+.Password {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 12px;
+}

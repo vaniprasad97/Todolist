@@ -1,3 +1,32 @@
-h1{
+h1 {
   color: blue;
+}
+
+.react-calendar__tile--now {
+  background-color: #fed8b1;
+}
+
+.react-calendar__tile--active {
+  background-color: #ffe0b2;
+}
+
+.react-calendar__tile--has-tile {
+  position: relative;
+}
+
+.react-calendar__tile--has-tile > div {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.react-calendar__tile--has-tile > div > div {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.react-calendar__tile--has-tile > div > div:last-child {
+  margin-right: 0;
 }

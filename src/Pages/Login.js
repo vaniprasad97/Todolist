@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ValidateUser } from "../functions/ValidateUser";
+import { ValidateUser } from "../Component/TodoApp/functions/ValidateUser";
 import { GetUsers } from "../Hooks/GetUsers.js";
 import "../styles/LoginPage.css";
 
@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
+    <div className="logindata">
       <div className="login__container">
         <form onSubmit={handleSubmit} className="login-form">
           <h4>E-mail</h4>

@@ -1,33 +1,55 @@
-// TodoList.js
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "./TodoApp.css";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
 
-import React, { useState } from 'react';
-import './TodoApp.css';
-// import { Pie } from "react-chartjs-2";
-// import Calendar from "react-big-calendar";
-// import moment from "moment";
-// import "react-big-calendar/lib/css/react-big-calendar.css";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-// Calendar.setLocalizer(Calendar.momentLocalizer(moment));
-
-function TodoList() {
+function TodoApp() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState('');
-  const [priority, setPriority] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
+  const [newTask, setNewTask] = useState("");
+  const [priority, setPriority] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [value, onChange] = useState(new Date());
+
+  const data = {
+    labels: ["Completed", "InProgress", "Cancelled Tasks"],
+    datasets: [
+      {
+        data: [3, 6, 9],
+        backgroundColor: ["green", "orange", "grey"],
+      },
+    ],
+  };
+  const options = {
+    title: {
+      display: true,
+      text: "Monthly and Weekly Performance",
+    },
+  };
 
   const handleAddTask = () => {
     const newTaskObj = {
       taskName: newTask,
       taskPriority: priority,
       taskDescription: description,
-      taskDate: date
+      taskDate: date,
     };
     setTasks([...tasks, newTaskObj]);
-    setNewTask('');
-    setPriority('');
-    setDescription('');
-    setDate('');
+    setNewTask("");
+    setPriority("");
+    setDescription("");
+    setDate("");
+
+    /// create fun to render piechartt
+  };
+
+  const handleTaskStatusChange = (index, status) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].status = status;
+    setTasks(updatedTasks);
   };
 
   const handleDeleteTask = (index) => {
@@ -40,228 +62,111 @@ function TodoList() {
     <div className="todo-list">
       <h1>To-Do List</h1>
       <div className="input-group">
-        <input type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} placeholder="Enter task name" />
-        <input type="text" value={priority} onChange={(e) => setPriority(e.target.value)} placeholder="Enter task priority" />
-        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter task description" />
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Enter task date" />
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="Enter task name"
+        />
+
+        {/* <input type="text" value={priority} onChange={(e) => setPriority(e.target.value)} placeholder="Enter task priority" /> */}
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Enter task description"
+        />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          placeholder="Enter task date"
+        />
         <button onClick={handleAddTask}>Add Task</button>
       </div>
-      <ul>
+     
+            {/* <p>Priority: {task.taskPriority}</p> */}
+            {/* <label>
+        <input type="checkbox" />
+        Completed
+      </label>
+      <label>
+        <input type="checkbox" />
+        In Progress
+      </label>
+      <label>
+        <input type="checkbox" />
+        Cancelled
+      </label>  */}
+            {/* <p>Description: {task.taskDescription}</p>
+            <p>Date: {task.taskDate}</p> */}
+             <div>
+        {/* <h2>Task Manager</h2> */}
+        <table border="2px" align="center" width ="50px">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="px-4 py-2">S.no</th>
+                <th className="px-4 py-2">taskName</th>
+                <th className="px-4 py-2">taskDescription</th>
+                <th className="px-4 py-2">taskDate</th>
+                <th className="px-4 py-2">taskDelete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tasks.map((task, index) => (
+                <tr
+                  key={index}
+                  className={index % 2 === 0 ? "bg-gray-200" : "bg-gray-100"}
+                  
+                >
+                    <td className="px-4 py-2">{index+1}</td>
+                  <td className="px-4 py-2">{task.taskName}</td>
+                  <td className="px-4 py-2">{task.taskDescription}</td>
+                  <td className="px-4 py-2">{task.taskDate}</td>
+                  <td>     <button onClick={() => handleDeleteTask(index)}>
+                    Delete
+                  </button>  </td>
+                
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+       
+        {/* <table border="2px" align="center">
         {tasks.map((task, index) => (
-          <li key={index}>
-            <h2>{task.taskName}</h2>
-            <p>Priority: {task.taskPriority}</p>
-            <p>Description: {task.taskDescription}</p>
-            <p>Date: {task.taskDate}</p>
-            <button onClick={() => handleDeleteTask(index)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+          <tr key={index}>  
+              <tr width="25%">
+                {task.taskName} 
+                <td width="25%">{task.taskDescription}</td>
+                <td width="25%">{task.taskDate}</td>
+                <td width="25%">
+                  <button onClick={() => handleDeleteTask(index)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </table>
+        ))} */}
+      </div>
+
+      <div
+        style={{
+          padding: "20px",
+          width: "40%",
+        }}
+      >
+        <div className="piechart-container">
+          <Pie data={data} options={options}></Pie>
+          <Calendar onChange={onChange} value={value} />
+        </div>
+      </div>
+      {/* <h1 className='text-center'>React Calendar</h1> */}
+      <div className="calendar-container">
+        {/* <Calendar onChange={onChange} value={value} /> */}
+      </div>
     </div>
   );
 }
 
-export default TodoList;
-
-////// new 2222222222
-
-
-// import React, { useState } from 'react';
-// import "./TodoApp.css";
-// import { AiFillDelete } from "react-icons/ai";
-// import { AiFillEdit } from "react-icons/ai";
-
-// function TodoList() {
-//   const [tasks, setTasks] = useState([]);
-//   const [newTask, setNewTask] = useState('');
-
-//   const addTask = () => {
-//     setTasks([...tasks, newTask]);
-//     setNewTask('');
-//   };
-//  const handleDeleteTask = (index) => {
-//     const newTasks = [...tasks];
-//     newTasks.splice(index, 1);
-//     setTasks(newTasks);
-//   };
-
-//   return (
-//     <div className="todo-container">
-//         <h1> Todo App </h1>
-//     <div className='input-section'>
-//       <input type="text"
-//        value={newTask} 
-//        onChange={(e) => setNewTask(e.target.value)}
-//        placeholder = "enter task name" />
-
-//          <input type="text"
-//        value={newTask} 
-//        onChange={(e) => setNewTask(e.target.value)} 
-//        placeholder = "enter description"/>
-
-//   <input type="text"
-//        value={newTask} 
-//        onChange={(e) => setNewTask(e.target.value)} 
-//        placeholder = "enter priority"/>
-//         <input type="date"
-//        value={newTask} 
-//        onChange={(e) => setNewTask(e.target.value)} 
-//        placeholder = "enter date"/>
-//        </div>
-
-//       <button onClick={addTask}>Add Task</button>
-//        <ul>
-//         {tasks.map((task, index) => (
-//           <li  key={index}>{task} 
-//             <AiFillEdit  />
-//              <AiFillDelete onClick={() => handleDeleteTask(index)}/>
-//           </li>
-//         ))}
-//       </ul>
-
-
-
-
-
-      
-//     </div>
-//   );
-// }
-
-// export default TodoList;
-
-
-
-
-
-//// new.......
-
-
-// import React, { Component } from "react";
-// import "./TodoApp.css";
-// import { AiFillDelete } from "react-icons/ai";
-// import { AiFillEdit } from "react-icons/ai";
-
-
-
-// const TodoApp = () => {
-
- 
- 
-//   const [formData, setFormData] = React.useState({
-//     input: "",
-//     description: "",
-//     priority: "",
-//     date :"",
-//     items : [],
-
-//   });
-
-//     function handleChange(event) {
-//     setFormData((prevFormData) => {
-//       return {
-//         ...prevFormData,
-//         [event.target.name]: event.target.value,
-//       };
-//     });
-//     console.log(FormData);
-//   }
-
-// // export default class TodoApp extends Component {
-// //   state = {
-// //     input: "",
-// //     description: "",
-// //     prority: "",
-// //     date :"",
-// //     items: [],
-// //   };
-
-//   // handleChange = (event) => {
-//   //   this.setState({
-//   //     [event.target.name]: event.target.value,
-//   //   });
-//   //   console.log(this.input);
-//   // };
-
-//   storeItems = (event) => {
-//     event.preventDefault();
-//     const { input } = FormData;
-//     // const { description } = this.state;
-//     // console.log(description)
-
-//     setFormData({
-//       items: [...FormData.items, input],
-     
-//       input: ""
-     
-//     });
-//   };
-
-//   deleteItem = (key) => {
-//     const allItems = FormData.items;
-//     allItems.splice(key, 1);
-//     setFormData({
-//       items: allItems,
-//     });
-//   };
-//   editItem = (key) => {
-//     const allItems = FormData.items;
-//   };
-//   // render() {
-//   //   const { input,description, items } = this.state;
-//   //   console.log(items);
-
-//     return (
-//       <div className="todo-container">
-//         <form className="input-section" onSubmit={storeItems}>
-//           <h1>TodoApp </h1>
-//           <input
-//             type="text"
-//             name ="input"
-//             value={FormData.input}
-//             onChange={handleChange}
-//             placeholder="enter the task name"
-//             required
-//           />
-//           <input
-//             type="text"
-//             value={FormData.description}
-//             name ="description"
-//             onChange={handleChange}
-//             placeholder="enter the description"
-//           />
-//           <input
-//             type="text"
-//             value={FormData.priority}
-//             name = "priority"
-//             onChange={handleChange}
-//             placeholder="priority"
-//             required
-//           />
-
-
-//           <input type="date" 
-//           value={FormData.date} 
-//           name = "date"
-//           onChange={handleChange} 
-//           placeholder="enter the date"
-//           required/>
-
-//           <div>
-//             <button type="submit">Add Items</button>
-//           </div>
-//         </form>
-
-//         <ul>
-//           {items.map((data, index) => (
-//             <li key={index}>
-//               {data}
-//               <AiFillEdit onClick={() => editItem(index)} />
-//               <AiFillDelete onClick={() => deleteItem(index)} />
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-// export default TodoApp;
+export default TodoApp;
