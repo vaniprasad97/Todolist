@@ -9,5 +9,4 @@ export const GetUsers =() =>
   
 };
 
-//maintain config file
 

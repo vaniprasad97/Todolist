@@ -43,7 +43,6 @@ const Login = () => {
             className="Email"
             type="email"
             placeholder="Email address"
-          
             name="userName"
             value={formData.userName}
             onChange={handleChange}
@@ -64,7 +63,7 @@ const Login = () => {
 
           <p>{formErrors.userName}</p>
 
-          <button type="submit" className="login-button" >
+          <button type="submit" className="login-button">
             Login
           </button>
         </form>
